@@ -1,3 +1,4 @@
+import { send } from "node:process";
 import { sendDiscordMessage } from "./discordService";
 
 export const handlePushEvent = (payload: any) => {
@@ -5,9 +6,10 @@ export const handlePushEvent = (payload: any) => {
   const ref = payload.ref || "unknown ref";
   const commits = payload.commits || [];
 
-  console.log(
-    `-> Push by ${pusher} to ${ref} with ${commits.length} commit(s).`,
-  );
+  const message = `-> Push event by ${pusher} to ${ref} with ${commits.length} commit(s).`;
+  sendDiscordMessage(message);
+  console.log(message);
+
   commits.forEach((commit: any) => {
     console.log(
       `   - ${commit.id.substring(0, 7)}: ${commit.message} (by ${commit.author.name})`,
@@ -20,10 +22,9 @@ export const handleIssueEvent = (payload: any) => {
   const issueNumber = payload.issue?.number || "unknown";
   const issueTitle = payload.issue?.title || "no title";
   const sender = payload.sender?.login || "unknown";
-
-  console.log(
-    `-> Issue #${issueNumber} "${issueTitle}" ${action} by ${sender}.`,
-  );
+  const message = `-> Issue #${issueNumber} "${issueTitle}" ${action} by ${sender}.`;
+  console.log(message);
+  sendDiscordMessage(message);
 };
 
 export const handleStarEvent = (payload: any) => {
