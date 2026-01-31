@@ -6,7 +6,7 @@ const app = express();
 
 app.use(
   express.json({
-    verify: (req: RequestWithRawBody, res, buf) => {
+    verify: (req: RequestWithRawBody, _res, buf) => {
       req.rawBody = buf;
     },
   }),
