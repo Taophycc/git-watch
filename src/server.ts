@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { pool } from "./db/connection";
 import dotenv from "dotenv";
+import { startScheduler } from "./scheduler";
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Git watch is running!");
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(PORT, async () => {
+  console.log(`📡 Server is listening on port ${PORT}`);
+  startScheduler();
 });
