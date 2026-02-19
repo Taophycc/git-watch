@@ -101,7 +101,7 @@ export const generateCodeAudit = async () => {
   console.log("🕵️ AI Service: Starting Full Project Audit...");
 
   try {
-    const { commits, issues, prs } = await fetchProjectData("7 days");
+    const { commits, issues, prs } = await fetchProjectData("3 months");
 
     if (commits.length === 0 && issues.length === 0 && prs.length === 0)
       return null;
